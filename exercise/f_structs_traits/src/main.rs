@@ -1,3 +1,24 @@
+#[derive(Debug)] // This enables using the debugging format string "{:?}"
+struct Grapes {
+    grapes_left : u32,
+}
+
+trait Bite {
+    fn bite(self: &mut Self);
+}
+
+impl Bite for Grapes {
+    fn bite(self: &mut Self) {
+        self.grapes_left -= 1;
+    }
+}
+fn bunny_nibbles<T: Bite>(item : &mut T) {
+    let mut i = 0;
+    while i < 10{
+        item.bite();
+        i += 1;
+    }
+}
 // 1. Define a trait named `Bite`
 //
 // Define a single required method, `fn bite(self: &mut Self)`.  We will call this method when we
@@ -30,9 +51,9 @@ fn main() {
     // 4. Uncomment and adjust the code below to match how you defined your
     // Grapes struct.
     //
-    //let mut grapes = Grapes { amount_left: 100 };
-    //grapes.bite();
-    //println!("Eat a grape: {:?}", grapes);
+    let mut grapes = Grapes { grapes_left: 100 };
+    grapes.bite();
+    println!("Eat a grape: {:?}", grapes);
 
     // Challenge: Uncomment the code below. Create a generic `bunny_nibbles`
     // function that:
@@ -41,8 +62,8 @@ fn main() {
     // Hint: Define the generic type between the function name and open paren:
     //       fn function_name<T: Bite>(...)
     //
-    //bunny_nibbles(&mut carrot);
-    //println!("Bunny nibbles for awhile: {:?}", carrot);
+    bunny_nibbles(&mut carrot);
+    println!("Bunny nibbles for awhile: {:?}", carrot);
 }
 
 #[derive(Debug)] // This enables using the debugging format string "{:?}"
